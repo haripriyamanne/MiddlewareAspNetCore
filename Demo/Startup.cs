@@ -25,7 +25,7 @@ namespace Demo
             });
         }
 
-        private static void HandleMapTest2(IApplicationBuilder app)
+        private static void HandleMapTest2(IApplicationBuilder app) //Method for map2
         {
             app.Run(async context =>
             {
@@ -68,7 +68,26 @@ namespace Demo
             {
                 endpoints.Map("/home", async context =>
                 {
-                    await context.Response.WriteAsync("\nHello Home Page!");
+                    //await context.Response.WriteAsync("\nHello Home Page!");
+                    if (env.IsEnvironment("Develop"))
+                    {
+                        await context.Response.WriteAsync("\nCustom Environment Created");
+                    }
+
+                    else if (env.IsDevelopment())  // code to be executed in development environment 
+                    {
+                        await context.Response.WriteAsync("\nDevelopment Environment");
+                    }
+
+                    else if (env.IsStaging()) // code to be executed in staging environment 
+                    {
+                        await context.Response.WriteAsync("\nStaging Environment");
+                    }
+
+                  else if (env.IsProduction())  // code to be executed in production environment 
+                    {
+                        await context.Response.WriteAsync("\nProduction Environment");
+                    }
                 });
             });
             app.Map("/map1", HandleMapTest1);
