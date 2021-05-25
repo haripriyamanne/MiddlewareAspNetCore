@@ -33,7 +33,6 @@ namespace Demo
             });
         }
 
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -55,7 +54,7 @@ namespace Demo
                 await context.Response.WriteAsync("\nMy Second Middle Ware Response");
             });
 
-            app.UseRouting();
+            app.UseRouting(); //This middleware is used to route requests.   
 
             app.UseEndpoints(endpoints =>
             {
@@ -78,7 +77,11 @@ namespace Demo
 
             app.Run(async context =>
             {
-                await context.Response.WriteAsync("Hello Page not Existed.");
+                await context.Response.WriteAsync("\nPage not Existed.");
+            });
+            app.Run(async context =>
+            {
+                await context.Response.WriteAsync("\nThis is never going to run."); //will never be executed    
             });
         }
     }
