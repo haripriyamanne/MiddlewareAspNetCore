@@ -17,6 +17,22 @@ namespace Demo
         public void ConfigureServices(IServiceCollection services)
         {
         }
+        private static void HandleMapTest1(IApplicationBuilder app) //Method for map1
+        {
+            app.Run(async context =>
+            {
+                await context.Response.WriteAsync("\nMap Test 1");
+            });
+        }
+
+        private static void HandleMapTest2(IApplicationBuilder app)
+        {
+            app.Run(async context =>
+            {
+                await context.Response.WriteAsync("\nMap Test 2");
+            });
+        }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -55,6 +71,14 @@ namespace Demo
                 {
                     await context.Response.WriteAsync("\nHello Home Page!");
                 });
+            });
+            app.Map("/map1", HandleMapTest1);
+
+            app.Map("/map2", HandleMapTest2);
+
+            app.Run(async context =>
+            {
+                await context.Response.WriteAsync("Hello Page not Existed.");
             });
         }
     }
